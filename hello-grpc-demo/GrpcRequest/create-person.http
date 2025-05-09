@@ -1,0 +1,12 @@
+### GET request to example server
+GRPC http://localhost:8001/HelloService/createNewPerson
+Content-Type: application/json
+
+{
+  "id" : 1122,
+  "name": "John Wick",
+  "email" : "john123@email.com",
+  "gender": "Male"
+}
+
+###

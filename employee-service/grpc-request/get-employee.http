@@ -1,0 +1,10 @@
+### GET Employee details
+
+GRPC http://localhost:8001/EmployeeService/GetEmployeeById
+Content-Type: application/json
+
+{
+  "id" : 1
+}
+
+###

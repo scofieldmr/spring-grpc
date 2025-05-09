@@ -1,0 +1,9 @@
+### GET request to example server
+GRPC localhost:8001/EmployeeService/GetAllEmployeeDetails
+Content-Type: application/json
+
+{
+
+}
+
+###

@@ -1,0 +1,9 @@
+### GET Hello Response
+GRPC http://localhost:8001/EmployeeService/SayHello
+Content-Type: application/json
+
+{
+  "name" : "John Wick"
+}
+
+###

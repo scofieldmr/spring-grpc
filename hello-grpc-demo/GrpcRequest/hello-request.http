@@ -1,0 +1,8 @@
+### GET request to example server
+GRPC http://localhost:8001/HelloService/sayHello
+
+{
+  "name" : "Mark Taylor"
+}
+
+###

@@ -1,0 +1,10 @@
+### Delete employee detials
+
+GRPC localhost:8001/EmployeeService/deleteEmployeeDetails
+Content-Type: application/json
+
+{
+  "id" : 6
+}
+
+###

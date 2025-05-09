@@ -1,0 +1,14 @@
+### Create new Employee Details
+
+GRPC http://localhost:8001/EmployeeService/CreateEmployee
+Content-Type: application/json
+
+{
+  "name" : "Isagi",
+  "email" :"isagi123@email.com" ,
+  "dept" : "Support",
+  "age" : 27,
+  "salary" : 15000
+}
+
+###

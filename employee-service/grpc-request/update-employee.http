@@ -1,0 +1,13 @@
+### Update Employee Details
+GRPC localhost:8001/EmployeeService/updateEmployeeDetails
+Content-Type: application/json
+
+{
+    "id" : 5,
+    "dept" : "Cleaner",
+    "age" : 27,
+    "salary" : 10000
+}
+
+
+###
