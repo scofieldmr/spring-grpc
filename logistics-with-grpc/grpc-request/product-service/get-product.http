@@ -1,0 +1,10 @@
+### GET Product by Id
+
+GRPC localhost:9090/ProductService/GetProduct
+Content-Type: application/json
+
+{
+  "id" : 1
+}
+
+###

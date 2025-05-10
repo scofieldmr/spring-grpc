@@ -1,0 +1,30 @@
+### Create new patients
+
+GRPC http://localhost:9000/PatientService/StreamPatients
+
+[
+  {
+    "first_name": "Alice",
+    "last_name": "Smith",
+    "email": "alice@example.com",
+    "phone": "1234567890",
+    "address": "123 Main St"
+  },
+  {
+    "first_name": "Bob",
+    "last_name": "Johnson",
+    "email": "bob@example.com",
+    "phone": "9876543210",
+    "address": "456 Oak St"
+  },
+  {
+    "first_name": "Charlie",
+    "last_name": "Brown",
+    "email": "charlie@example.com",
+    "phone": "5555555555",
+    "address": "789 Pine St"
+  }
+]
+
+
+###

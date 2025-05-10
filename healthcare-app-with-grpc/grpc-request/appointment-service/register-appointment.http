@@ -1,0 +1,12 @@
+### Book Appointment details
+
+GRPC localhost:9002/AppointmentService/BookAppointment
+Content-Type: application/json
+
+{
+  "doctor_id": "1",
+  "patient_id" : "2",
+  "appointment_date": "2025-05-11",
+  "appointment_time" : "10:00",
+  "reason": "Heart problem"
+}

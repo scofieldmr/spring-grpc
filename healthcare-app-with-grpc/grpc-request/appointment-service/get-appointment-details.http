@@ -1,0 +1,10 @@
+### GET appointment details
+
+GRPC localhost:9002/AppointmentService/GetAppointmentAvailability
+Content-Type: application/json
+
+{
+  "doctor_id": 1
+}
+
+###

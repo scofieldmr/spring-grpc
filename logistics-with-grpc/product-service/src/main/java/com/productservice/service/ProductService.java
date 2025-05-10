@@ -1,9 +1,13 @@
 package com.productservice.service;
 
+import com.productservice.client.GrpcClient;
+import com.productservice.client.GrpcTestClient;
 import com.productservice.entity.Products;
 import com.productservice.repository.ProductRepository;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
+import order.OrderRegistrationRequest;
+import order.OrderRegistrationResponse;
 import product.*;
 
 import java.util.ArrayList;
@@ -16,8 +20,11 @@ public class ProductService extends ProductServiceGrpc.ProductServiceImplBase {
 
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    private final GrpcClient grpcClient;
+
+    public ProductService(ProductRepository productRepository, GrpcClient grpcClient) {
         this.productRepository = productRepository;
+        this.grpcClient = grpcClient;
     }
 
 
@@ -76,26 +83,84 @@ public class ProductService extends ProductServiceGrpc.ProductServiceImplBase {
             responseObserver.onError(io.grpc.Status.NOT_FOUND.withDescription("No products found").asRuntimeException());
         }
         else {
-            List<ProductResponse> productResponses = new ArrayList<>();
             for (Products product : products) {
                 ProductResponse productResponse = ProductResponse.newBuilder()
                         .setId(product.getId()).setName(product.getName()).setCategory(product.getCategory())
                         .setDescription(product.getDescription()).setPrice(product.getPrice()).build();
-                productResponses.add(productResponse);
+                responseObserver.onNext(productResponse);
             }
-
-            responseObserver.onNext();
         }
+        responseObserver.onCompleted();
     }
 
     @Override
-    public StreamObserver<ProductRegistrationRequest> addProducts(StreamObserver<ProductRegistrationResponse> responseObserver) {
-        return super.addProducts(responseObserver);
+    public StreamObserver<ProductRegistrationRequest> addProducts(StreamObserver<ProductStreamRegistrationResponse> responseObserver) {
+
+        return new StreamObserver<ProductRegistrationRequest>() {
+            private int productCount = 0;
+            @Override
+            public void onNext(ProductRegistrationRequest productRegistrationRequest) {
+                Optional<Products> products = productRepository.findByName(productRegistrationRequest.getName());
+
+                if (products.isEmpty()) {
+                    var p = new Products();
+                    p.setName(productRegistrationRequest.getName());
+                    p.setCategory(productRegistrationRequest.getCategory());
+                    p.setDescription(productRegistrationRequest.getDescription());
+                    p.setPrice(productRegistrationRequest.getPrice());
+                    productRepository.save(p);
+                    System.out.println("Successfully added Product : " + p.getName());
+                    productCount++;
+                }
+                else{
+                    System.out.println("Product already exists : " + products.get().getName());
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+               System.out.println("Error while adding products"+throwable.getMessage());
+               responseObserver.onError(throwable);
+            }
+
+            @Override
+            public void onCompleted() {
+                ProductStreamRegistrationResponse response = ProductStreamRegistrationResponse.newBuilder()
+                        .setCount(productCount)
+                        .setMessage("Product added successfully").build();
+                responseObserver.onNext(response);
+                responseObserver.onCompleted();
+            }
+        };
     }
 
     @Override
     public StreamObserver<OrderRequest> trackOrders(StreamObserver<OrderResponse> responseObserver) {
-        return super.trackOrders(responseObserver);
+        return new StreamObserver<OrderRequest>() {
+
+            @Override
+            public void onNext(OrderRequest request) {
+                OrderRegistrationRequest registrationRequest = OrderRegistrationRequest.newBuilder()
+                        .setProductId(request.getProductId()).setQuantity(request.getQuantity()).build();
+
+                OrderRegistrationResponse response = grpcClient.placeOrder(registrationRequest);
+
+                OrderResponse orderResponse = OrderResponse.newBuilder()
+                        .setOrderId(response.getOrderId()).setMessage(response.getMessage()).build();
+                responseObserver.onNext(orderResponse);
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                System.out.println("Error while tracking orders"+throwable.getMessage());
+                responseObserver.onError(throwable);
+            }
+
+            @Override
+            public void onCompleted() {
+                 responseObserver.onCompleted();
+            }
+        };
     }
 }
 

@@ -1,0 +1,14 @@
+### Create new patient
+
+GRPC http://localhost:9000/PatientService/RegisterNewPatient
+Content-Type: application/json
+
+{
+  "first_name": "Mg",
+  "last_name" : "David",
+  "email": "mgdavid123@email.com",
+  "phone" : "22222",
+  "address" : "456, ADC Street"
+}
+
+###

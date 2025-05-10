@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option java_multiple_files=true;
+option java_package="order";
+
+service OrderService{
+   rpc PlaceOrder (OrderRegistrationRequest) returns (OrderRegistrationResponse);
+}
+
+message OrderRegistrationRequest{
+  int64 product_id = 1;
+  int64 quantity = 2;
+}
+
+message OrderRegistrationResponse{
+  int64 order_id = 1;
+  string message = 2;
+}

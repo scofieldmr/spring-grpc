@@ -1,0 +1,12 @@
+### Place Order
+
+GRPC localhost:9091/OrderService/PlaceOrder
+Content-Type: application/json
+
+{
+  "product_id": 2,
+  "quantity" : 1
+}
+
+
+###

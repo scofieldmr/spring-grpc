@@ -1,0 +1,10 @@
+### GET Product list
+
+GRPC localhost:9090/ProductService/ListProducts
+Content-Type: application/json
+
+{
+
+}
+
+###

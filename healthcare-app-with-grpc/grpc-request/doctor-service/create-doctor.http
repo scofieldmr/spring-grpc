@@ -1,0 +1,16 @@
+### Create new doctor details
+
+GRPC localhost:9001/DoctorService/RegisterDoctor
+Content-Type: application/json
+
+{
+  "first_name": "Max",
+  "last_name" : "well",
+  "email": "maxwell@email.com",
+  "phone" : "1212",
+  "specialty": "Heart surgeon",
+  "centre_name" : "ABC Centre",
+  "location" : "NY"
+}
+
+###

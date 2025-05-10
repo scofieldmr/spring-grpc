@@ -1,0 +1,10 @@
+### GET Patient Details
+
+GRPC http://localhost:9000/PatientService/GetPatientDetails
+Content-Type: application/json
+
+{
+  "patient_id" : 1
+}
+
+###

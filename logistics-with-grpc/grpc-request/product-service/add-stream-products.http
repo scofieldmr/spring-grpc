@@ -1,0 +1,21 @@
+### Add stream Products
+
+grpcurl -d @ localhost:9090/ProductService/AddProducts
+
+<<EOM
+{
+  "name" : "Lenovo 420",
+  "category" : "Laptop",
+  "description" : "A high performance laptop 320",
+  "price" : 111000
+}
+{
+"name" : "Lenovo 520",
+"category" : "Laptop",
+"description" : "A high performance laptop 320",
+"price" : 119000
+}
+EOM
+
+
+###

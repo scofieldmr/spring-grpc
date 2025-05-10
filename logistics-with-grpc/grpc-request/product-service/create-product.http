@@ -1,0 +1,13 @@
+### Create product
+
+GRPC localhost:9090/ProductService/CreateProduct
+Content-Type: application/json
+
+{
+  "name" : "Lenovo 320",
+  "category" : "Laptop",
+  "description" : "A high performance laptop 320",
+  "price" : 99000
+}
+
+###
